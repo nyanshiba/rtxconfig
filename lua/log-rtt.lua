@@ -1,7 +1,7 @@
 -- PP IP Address Remoteを取得する関数
 function get_pp_remote(peer_num)
     local rtn, str = rt.command($'show status pp ${peer_num}')
-    return string.match(str, /Remote:\\s([\\d.]+)/)
+    return string.match(str, /Remote:\s([\d.]+)/)
 end
 
 -- ping先
@@ -25,9 +25,9 @@ tbl = {
 -- IPv4のソースアドレス(グローバルIPアドレス)を取得する関数
 function get_ip_route(host)
     local rtn, str = rt.command($'show ip route ${host}')
-    local peer_num = string.match(str, /PP\\[0(\\d)]/)
+    local peer_num = string.match(str, /PP\[0(\d)]/)
     local rtn, str = rt.command($'show status pp ${peer_num}')
-    return string.match(str, /Local:\\s([\\d.]+)/)
+    return string.match(str, /Local:\s([\d.]+)/)
 end
 
 -- ICMPでRTTを計測し、syslogに出力する関数
@@ -41,11 +41,11 @@ function measure_rtt(host)
         rtn, str = rt.command($'ping6 -c 10 -w 1 ${host}')
     end
     -- min/avg/max
-    local rttsum = string.match(str, /=\\s([\\d.\\/]+)\\s/)
+    local rttsum = string.match(str, /=\s([\d.\/]+)\s/)
 
     -- 90パーセンタイル(もどき)
     local rttlist = {}
-    string.gsub(str, /.*=(\\d+)\\.(\\d+).*/,
+    string.gsub(str, /.*=(\d+)\.(\d+).*/,
         function (a, b)
             table.insert(rttlist, tonumber(a..b))
         end)

@@ -45,7 +45,7 @@ function pp_connect()
     rt.command($'connect pp ${peer_num}')
     rt.sleep(10)
     local rtn, str = rt.command($'show status pp ${peer_num}')
-    return string.match(str, /Remote:\\s([\\d.]+)/)
+    return string.match(str, /Remote:\s([\d.]+)/)
 end
 
 -- (ISP側のレート制限を超えて)接続失敗したら、切断状態に戻す(次のscheduleでリトライする)

@@ -17,7 +17,7 @@ end
 
 -- 現在設定されているIPv6アドレスを取得
 rtn, str = rt.command('show ipv6 address lan1')
-nosuffix = {string.match(str, /24(\\w+:){4}([\\w:]+)\\/64/g)}
+nosuffix = {string.match(str, /24(\w+:){4}([\w:]+)\/64/g)}
 -- 新たなIPv6アドレスを設定
 rt.command($'ipv6 lan1 address ra-prefix@lan2::' .. table.concat(suffix, ':') .. '/64')
 -- 前回設定したIPv6アドレスを削除

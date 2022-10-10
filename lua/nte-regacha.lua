@@ -2,11 +2,11 @@
 function measure_rtt(ip)
     local rtn, str = rt.command($'ping -c 10 -w 1 ${ip}')
     -- min/avg/max
-    local rttsum = string.match(str, /=\\s([\\d.\\/]+)\\s/)
+    local rttsum = string.match(str, /=\s([\d.\/]+)\s/)
 
     -- 90パーセンタイル(もどき)
     local rttlist = {}
-    string.gsub(str, /.*=(\\d+)\\.(\\d+).*/,
+    string.gsub(str, /.*=(\d+)\.(\d+).*/,
         function (a, b)
             table.insert(rttlist, tonumber(a..b))
         end)
