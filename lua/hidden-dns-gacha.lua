@@ -43,23 +43,19 @@ end
 
 -- 逆NATを削除する関数
 function no_reverse_nat(peer_num)
+    -- 静的NATエントリidは1, 2を使う
     for i = 1, 2 do
-        for j = 1, 2 do
-            -- PP 1のNATディスクリプタ番号は、逆NATはOutboundが1002, Inboundが1001とする
-            -- ip pp nat descriptor 1000 1001 reverse 1002
-            rt.command($'no nat descriptor static ${peer_num}00${i} ${j}')
-        end
+        -- PP "1"のNATディスクリプタ番号は、IPマスカレードが"1"000, 逆NATは100"2"とする
+        -- ip pp nat descriptor 1000 reverse 1002
+        rt.command($'no nat descriptor static ${peer_num}002 ${i}')
     end
 end
 
 -- 逆NATを設定する関数
 function set_reverse_nat(peer_num, dummy_dns, fast_dns)
-    -- Outboundのダミーアドレスを逆NATしたら、Inbound NATで戻りパケットを元のダミーアドレスに戻す
-    for i = 1, 2 do
-        -- 戻りパケットがタイムアウトしないよう、あべこべも逆NATする
-        rt.command($'nat descriptor static ${peer_num}00${i} 1 ${dummy_dns}=${fast_dns} 1')
-        rt.command($'nat descriptor static ${peer_num}00${i} 2 ${fast_dns}=${dummy_dns} 1')
-    end
+    -- ソースアドレスがfast_dnsな問い合わせがタイムアウトしないよう、あべこべの逆NAT設定も入れる
+    rt.command($'nat descriptor static ${peer_num}002 1 ${dummy_dns}=${fast_dns} 1')
+    rt.command($'nat descriptor static ${peer_num}002 2 ${fast_dns}=${dummy_dns} 1')
 end
 
 -- AAAAレコードの問い合わせに使うNGNのDNSサーバを選ぶ
