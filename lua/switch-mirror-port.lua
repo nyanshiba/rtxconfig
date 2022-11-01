@@ -12,6 +12,7 @@ else
     capture_port = 4
 end
 -- ミラーポートは3番
+rt.syslog('info', $'switch-mirror-port.lua: Switching capture port from ${current_capture_port} to ${capture_port}')
 rt.command($'lan port-mirroring lan1 3 in ${capture_port} out ${capture_port}')
 
 -- STATUS LEDの点滅でキャプチャポートを知らせる
