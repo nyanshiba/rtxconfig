@@ -23,8 +23,8 @@ end
 function pp_disconnect(peer_num)
     rt.command($'pp disable ${peer_num}')
     rt.command($'disconnect pp ${peer_num}')
-    -- IPマスカレードを行うNATディスクリプタ番号はPP 1なら1000, PP 2なら2000とする
-    rt.command($'clear nat descriptor dynamic ${peer_num}000') 
+    -- NATテーブルをクリアすればある程度復帰が早い
+    rt.command($'clear nat descriptor interface dynamic pp ${peer_num}')
 end
 
 -- 2つのPPPoEセッションを比較して、RTTが悪い方を落としてnte-gacha.luaによる再ガチャを促す
