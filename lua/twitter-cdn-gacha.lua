@@ -103,7 +103,10 @@ compare_rtt({
     '2a04:4e42:1a::158',
     '2a04:4e42:8c::158'
 })
--- Google
+-- Google 2404:6800:400a:0800::/58 か 2404:6800:4004:0800::/58 かは地域による
+compare_rtt(
+    generate_google_ip({'lh3.googleusercontent.com'}, '2404:6800:4004:8', '::2001')
+)
 compare_rtt(
     generate_google_ip(
         {
@@ -111,8 +114,52 @@ compare_rtt(
             'clientservices.googleapis.com',
             'crashlyticsreports-pa.googleapis.com',
             'ocsp.pki.goog',
-            'www.google.co.jp'
+            'www.google.co.jp',
+            'www.gstatic.com'
         },
         '2404:6800:4004:8', '::2003'
     )
+)
+compare_rtt(
+    generate_google_ip(
+        {
+            'ajax.googleapis.com',
+            'oauthaccountmanager.googleapis.com', 
+            'play.googleapis.com', 
+            'safebrowsing.googleapis.com', 
+            'www.googleapis.com'
+        },
+        '2404:6800:4004:8', '::200a'
+    )
+)
+compare_rtt(
+    generate_google_ip(
+        {
+            'play.google.com',
+            'youtube-ui.l.google.com',
+            'clients3.google.com',
+            'google.com',
+            'app-measurement.com',
+            'www.youtube.com'
+        },
+        '2404:6800:4004:8', '::200e'
+    )
+)
+compare_rtt(
+    generate_google_ip({'www.google.com'}, '2404:6800:4004:8', '::2004')
+)
+compare_rtt(
+    generate_google_ip({'accounts.google.com'}, '2404:6800:4004:8', '::200d')
+)
+compare_rtt(
+    generate_google_ip({'fonts.googleapis.com'}, '2404:6800:4004:8', '::200f')
+)
+compare_rtt(
+    generate_google_ip({'i.ytimg.com'}, '2404:6800:4004:8', '::2016')
+)
+compare_rtt(
+    generate_google_ip({'a.rtmps.youtube.com'}, '2404:6800:4004:8', '::200c')
+)
+compare_rtt(
+    generate_google_ip({'a.upload.youtube.com'}, '2404:6800:4004:8', '::200f')
 )
