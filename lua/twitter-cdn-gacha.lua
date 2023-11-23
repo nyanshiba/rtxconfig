@@ -87,8 +87,10 @@ compare_rtt({
     '2600:1480:4000:e5::', -- 後にdig等で取得したIPアドレスを記述
     '2600:1480:3000:e5::', -- pbs-ak.twimg.com
     '2a04:4e42:15::159', -- dualstack.twimg.twitter.map.fastly.net
+    '2a04:4e42:36::159',
     '2a04:4e42:1a::159',
-    '2a04:4e42:8c::159'
+    '2a04:4e42:8c::159',
+    '2a04:4e42:3::159'
 })
 -- Twitter動画サーバ
 compare_rtt({
@@ -96,6 +98,8 @@ compare_rtt({
     '2600:1480:4000:e4::', -- video-ak.twimg.com
     '2600:1480:3000:e4::',
     '2a04:4e42:15::158', -- dualstack.video.twitter.map.fastly.net
+    '2a04:4e42:3::158',
+    '2a04:4e42:36::158',
     '2a04:4e42:1a::158',
     '2a04:4e42:8c::158'
 })
